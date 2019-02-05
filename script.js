@@ -60,9 +60,7 @@ fetch(githubURL)
             let closeElement = `<span class="modal_close">&times;</span>`;
             let template = document.createElement('template');
             template.innerHTML = closeElement.trim();
-            // use this funtion for the modal too
-
-            //Try to do a modal for all cards
+            // use this Function makes the modal for all cards
             const repoCards = workContent[0].querySelectorAll('.works__card');
             console.log(repoCards);
 
