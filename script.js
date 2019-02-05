@@ -60,17 +60,44 @@ fetch(githubURL)
             let closeElement = `<span class="modal_close">&times;</span>`;
             let template = document.createElement('template');
             template.innerHTML = closeElement.trim();
+            // use this funtion for the modal too
+
+            //Try to do a modal for all cards
+            const repoCards = workContent[0].querySelectorAll('.works__card');
+            console.log(repoCards);
+
+            function quitModal(){
+                repoCards.forEach(
+                    card => {
+                        card.classList.remove('modal');
+                    }
+                );
+            }
+
+            repoCards.forEach(
+                card => {
+                    card.addEventListener('click',function (event) {
+                        const clickedElement = event.target;
+                        if (clickedElement==card) {
+                            quitModal();
+                            card.classList.add('modal');
+                        }
+                        
+                    });
+                    card.addEventListener('click',function(event){
+                        event.stopPropagation();
+                    });
+                    document.addEventListener('click',function(event){
+                        quitModal();
+                    });
+                    // When the user clicks anywhere outside of the modal, close it
+                }
+            );
 
         });
-
-        
-
     }
 
     paintRepos(value);
-
-
-    const repoCards = workContent[0].querySelectorAll('.works__card');
 
     //Fill the works if clicked
     workList.addEventListener('click',
