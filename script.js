@@ -6,7 +6,7 @@ fetch(githubURL)
 })
 .then(response => {
     const repoData = response.map(item => {
-        return {id, name, description, language} = item;
+        return {id, name, description, language, html_url} = item;
     });
  
     return repoData;
@@ -33,11 +33,71 @@ fetch(githubURL)
     github project.
     */
 
-    const workContent = document.getElementsByClassName('works-content');
-    
+    const workContent = document.querySelector('.works-content');
+
+    function paintModalElements (repo) {
+        /* let modalClose = `<span class="modal_close">&times;</span>`;
+        let modalA = `<a href="${repo.html_url}" class="modal_a">Visit it!</a>`;
+        let template = modalClose.concat(modalA).trim();
+        let parser = new DOMParser();
+        let modalCloseA = parser.parseFromString(template, "text/html"); */
+        
+        const template = `
+            <div>
+                <span class="modal_close">&times;</span>
+                <a href="${repo.html_url}" target="_blank" class="modal_a">Visit Repo!</a>
+            </div>
+        `
+        const parser = new DOMParser();
+        const templateParsed = parser.parseFromString(template, "text/html")
+        .body.children[0];
+        console.log(templateParsed);
+        return templateParsed;
+    }
+
+    // use this Function makes the modal for all cards
+    function quitModal (){
+        const repoCards = workContent.querySelectorAll('.works__card');
+        repoCards.forEach(
+            card => {
+                card.classList.remove('modal');
+                
+            }
+        );
+    }
+
+
+    function cardEvents(card,repo) {
+        
+        card.addEventListener('click',function (event) {
+            const clickedElement = event.target;
+
+            if (clickedElement === card) {
+                quitModal();
+                card.classList.add('modal');
+                card.style.backgroundColor = "white"
+                console.log(card.querySelector('.modal_close'));
+                
+            }
+            if (clickedElement === card.querySelector('.modal_close')) {
+                quitModal();
+            } 
+            
+        });
+        document.addEventListener('click',function(){
+            quitModal();
+        });
+        card.addEventListener('click',function(event){
+            event.stopPropagation();
+        });
+        
+        // When the user clicks anywhere outside of the modal, close it   
+    }
+
 
     function paintRepos(repos) { 
-        repos.map(repo =>{    
+
+        repos.forEach(repo => {  
             let card = document.createElement("div");
             
             let cardColor  = ""+repo.id.toString().substr(0, 6)+"11"
@@ -55,44 +115,17 @@ fetch(githubURL)
             card.appendChild(cardLanguage);
             card.classList.add("works__card");
 
-            workContent[0].appendChild(card);
+            const modalElements = paintModalElements(repo)
+            card.appendChild(modalElements.querySelector('.modal_a'));
+            card.appendChild(modalElements.querySelector('.modal_close'));
 
-            let closeElement = `<span class="modal_close">&times;</span>`;
-            let template = document.createElement('template');
-            template.innerHTML = closeElement.trim();
-            // use this Function makes the modal for all cards
-            const repoCards = workContent[0].querySelectorAll('.works__card');
-            console.log(repoCards);
+            workContent.appendChild(card);
 
-            function quitModal(){
-                repoCards.forEach(
-                    card => {
-                        card.classList.remove('modal');
-                    }
-                );
-            }
+            cardEvents(card, repo);            
 
-            repoCards.forEach(
-                card => {
-                    card.addEventListener('click',function (event) {
-                        const clickedElement = event.target;
-                        if (clickedElement==card) {
-                            quitModal();
-                            card.classList.add('modal');
-                        }
-                        
-                    });
-                    card.addEventListener('click',function(event){
-                        event.stopPropagation();
-                    });
-                    document.addEventListener('click',function(event){
-                        quitModal();
-                    });
-                    // When the user clicks anywhere outside of the modal, close it
-                }
-            );
 
         });
+
     }
 
     paintRepos(value);
@@ -113,14 +146,14 @@ fetch(githubURL)
 
         if ( event.target.nodeName == "LI") {
 
-            console.log("List item ", value.filter(x => x.language == event.target.id));
-            console.log("List item ", event.target.id.replace("post-", ""), " was clicked!");
+            //console.log("List item ", value.filter(x => x.language == event.target.id));
+            //console.log("List item ", event.target.id.replace("post-", ""), " was clicked!");
             
             
             //Filter by programing language
             let filteredWork = value.filter(x => x.language == event.target.id);
-            while (workContent[0].firstChild){
-                workContent[0].removeChild(workContent[0].firstChild);
+            while (workContent.firstChild){
+                workContent.removeChild(workContent.firstChild);
             }
 
             if (event.target.id == "All"){
@@ -150,7 +183,6 @@ let getWorks = document.getElementById("getWorks");
 let contact = document.getElementById("contact");
 let getContact = document.getElementById("getContact");
 
-//console.log(getResume)
 
 function remove() {
     about.classList.remove('view');
