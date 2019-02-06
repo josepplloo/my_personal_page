@@ -36,22 +36,15 @@ fetch(githubURL)
     const workContent = document.querySelector('.works-content');
 
     function paintModalElements (repo) {
-        /* let modalClose = `<span class="modal_close">&times;</span>`;
-        let modalA = `<a href="${repo.html_url}" class="modal_a">Visit it!</a>`;
-        let template = modalClose.concat(modalA).trim();
-        let parser = new DOMParser();
-        let modalCloseA = parser.parseFromString(template, "text/html"); */
-        
         const template = `
             <div>
-                <span class="modal_close">&times;</span>
+                <span class="modal_close">Not now.</span>
                 <a href="${repo.html_url}" target="_blank" class="modal_a">Visit Repo!</a>
             </div>
         `
         const parser = new DOMParser();
         const templateParsed = parser.parseFromString(template, "text/html")
         .body.children[0];
-        console.log(templateParsed);
         return templateParsed;
     }
 
@@ -67,17 +60,18 @@ fetch(githubURL)
     }
 
 
-    function cardEvents(card,repo) {
+    function cardEvents(card) {
         
         card.addEventListener('click',function (event) {
             const clickedElement = event.target;
 
-            if (clickedElement === card) {
+            if (clickedElement === card ||
+                 clickedElement === card.firstChild ||
+                 clickedElement === card.children[1] ||
+                 clickedElement === card.children[2] ){
                 quitModal();
                 card.classList.add('modal');
-                card.style.backgroundColor = "white"
-                console.log(card.querySelector('.modal_close'));
-                
+                card.style.backgroundColor = "white"                
             }
             if (clickedElement === card.querySelector('.modal_close')) {
                 quitModal();
@@ -121,7 +115,7 @@ fetch(githubURL)
 
             workContent.appendChild(card);
 
-            cardEvents(card, repo);            
+            cardEvents(card);            
 
 
         });
@@ -142,14 +136,9 @@ fetch(githubURL)
             element.classList.remove('work-item-selected');
         });
 
-        clickedElement.classList.add('work-item-selected');
 
         if ( event.target.nodeName == "LI") {
-
-            //console.log("List item ", value.filter(x => x.language == event.target.id));
-            //console.log("List item ", event.target.id.replace("post-", ""), " was clicked!");
-            
-            
+            clickedElement.classList.add('work-item-selected');
             //Filter by programing language
             let filteredWork = value.filter(x => x.language == event.target.id);
             while (workContent.firstChild){
@@ -178,8 +167,6 @@ let resume = document.getElementById("resume");
 let getResume = document.getElementById("getResume");
 let works = document.getElementById("works");
 let getWorks = document.getElementById("getWorks");
-//let blog = document.getElementById("blog");
-//let getBlog = document.getElementById("getBlog");
 let contact = document.getElementById("contact");
 let getContact = document.getElementById("getContact");
 
