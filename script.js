@@ -161,14 +161,14 @@ fetch(githubURL)
 
 
 
-let about = document.getElementById("about");
-let getAbout = document.getElementById("getAbout");
-let resume = document.getElementById("resume");
-let getResume = document.getElementById("getResume");
-let works = document.getElementById("works");
-let getWorks = document.getElementById("getWorks");
-let contact = document.getElementById("contact");
-let getContact = document.getElementById("getContact");
+const about = document.getElementById("about");
+const getAbout = document.getElementById("getAbout");
+const resume = document.getElementById("resume");
+const getResume = document.getElementById("getResume");
+const works = document.getElementById("works");
+const getWorks = document.getElementById("getWorks");
+const contact = document.getElementById("contact");
+const getContact = document.getElementById("getContact");
 
 
 function remove() {
@@ -211,16 +211,6 @@ getWorks.addEventListener('click', function (e) {
 })
 
 
-/*
-getBlog.addEventListener('click', function (e) {
-    if (window.innerWidth > 1040) {
-        e.preventDefault();
-        remove();
-        blog.classList.add('view');
-        getBlog.classList.add('selected');
-    }
-})
-*/
 
 getContact.addEventListener('click', function (e) {
     if (window.innerWidth > 1040) {
@@ -232,8 +222,36 @@ getContact.addEventListener('click', function (e) {
 
 })
 
-var email = document.getElementById("email");
-var form = document.getElementById("form");
+const fullname = document.getElementById('fullname');
+const email = document.getElementById("email");
+const userMessage = getElementById("message");
+const form = document.getElementById("form");
+
+if( !(localStorage.getItem('userEmail') == null )){
+    console.log("Hello ", localStorage.getItem('userEmail'));
+    email.value=localStorage.getItem('userEmail');
+}
+
+if( !(localStorage.getItem('userName') == null )){
+    fullname.value=localStorage.getItem('userName');
+}
+
+if( !(localStorage.getItem('userMessage') == null )){
+    userMessage.value=localStorage.getItem('userMessage');
+}
+
+
+fullname.addEventListener('input',function(event){
+    localStorage.setItem('userName', fullname.value);
+});
+
+email.addEventListener('input',function(event){
+    localStorage.setItem('userEmail', email.value);
+});
+
+userMessage.addEventListener('input',function(event){
+    localStorage.setItem('userMessage', userMessage.value);
+});
 
 email.addEventListener("input", function (event) {
     if (email.validity.typeMismatch) {
@@ -245,4 +263,6 @@ email.addEventListener("input", function (event) {
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
+
+    localStorage.clear();
 });
