@@ -224,7 +224,7 @@ getContact.addEventListener('click', function (e) {
 
 const fullname = document.getElementById('fullname');
 const email = document.getElementById("email");
-const userMessage = getElementById("message");
+const userMessage = document.getElementById("message");
 const form = document.getElementById("form");
 
 if( !(localStorage.getItem('userEmail') == null )){
