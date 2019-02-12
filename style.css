@@ -688,6 +688,16 @@ content: "\200B"; /* add zero-width space */
     text-transform: uppercase;
 }
 
+.works__card h6{
+    padding: 0 0 2px 0;
+    display: block;
+    font-size: 13px;
+    color: var(--color__icon2);
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 126px;
+    margin: 0 auto;
+}
 
 .modal {
     display: block; 
@@ -741,56 +751,7 @@ content: "\200B"; /* add zero-width space */
     border: 1px solid chocolate;
 }
 
-.blog-items article{
-    padding: 16px;
-}
 
-.blog-items article > div{
-    padding: 10px 0 0 0;
-    position: absolute;
-    left: 36px;
-    bottom: 88px;
-    width: 50px;
-    height: 50px;
-    font-size: 11px;
-    line-height: 11px;
-    color: #171717;
-    text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
-    background: #ffffff;
-    box-sizing: border-box;
-}
-
-.blog-items article > div span{
-    display: block;
-    font-size: 20px;
-    line-height: 20px;
-    color: #171717;
-    font-weight: 700;
-}
-
-.blog-items img{
-    width: 100%;
-}
-
-.blog-items h4{
-    padding: 0 0 2px 0;
-    display: block;
-    font-size: 13px;
-    color: #171717;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 3px 0;
-}
-
-.blog-items h5{
-    margin: 0;
-    font-size: 11px;
-    color: #999999;
-    font-weight: 300;
-    text-transform: uppercase;
-}
 
 .contact{
     margin-bottom: 40px;

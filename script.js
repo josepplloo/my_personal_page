@@ -98,7 +98,7 @@ fetch(githubURL)
             card.style.backgroundColor = `#${cardColor}`;
 
             let cardDescription = document.createElement("h5");
-            let cardLanguage = document.createElement("h4");
+            let cardLanguage = document.createElement("h6");
             let cardName = document.createElement("h4");
 
             cardDescription.appendChild(document.createTextNode(repo.description));
