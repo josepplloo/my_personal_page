@@ -255,7 +255,7 @@ userMessage.addEventListener('input',function(event){
 
 
 
-form.addEventListener("onsubmit", function (event) {
+form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     var mailInfo = `mailto:josepplloo@gmail.com
