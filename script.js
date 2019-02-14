@@ -92,7 +92,7 @@ fetch(githubURL)
     function paintRepos(repos) { 
 
         repos.forEach(repo => {  
-            let card = document.createElement("div");
+            const card = document.createElement("div");
             
             let cardColor  = ""+repo.id.toString().substr(0, 6)+"11"
             card.style.backgroundColor = `#${cardColor}`;
@@ -253,16 +253,18 @@ userMessage.addEventListener('input',function(event){
     localStorage.setItem('userMessage', userMessage.value);
 });
 
-email.addEventListener("input", function (event) {
-    if (email.validity.typeMismatch) {
-        email.setCustomValidity("I expect an e-mail, darling!");
-    } else {
-        email.setCustomValidity("");
-    }
-});
+
 
 form.addEventListener("onsubmit", function (event) {
     event.preventDefault();
+
+    var mailInfo = `mailto:josepplloo@gmail.com
+        ?subject=Get in touch with ${localStorage.getItem('userName')}
+         - ${localStorage.getItem('userEmail')}
+        &body=${localStorage.getItem('userMessage')}
+        `
+    
+    window.location.href = mailInfo.trim();
 
     localStorage.clear();
 });
