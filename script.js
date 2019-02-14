@@ -261,7 +261,7 @@ email.addEventListener("input", function (event) {
     }
 });
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("onsubmit", function (event) {
     event.preventDefault();
 
     localStorage.clear();

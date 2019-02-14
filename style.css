@@ -662,6 +662,7 @@ content: "\200B"; /* add zero-width space */
     border: 0.3px solid aquamarine;
     cursor: pointer;
     flex-basis: 0;
+    min-width: 230px;
 }
 
 .works__card a, 
