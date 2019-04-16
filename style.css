@@ -422,6 +422,7 @@ general styles
 
 .about__p {
     text-align: left;
+    margin-bottom: 1rem;
 }
 
 .about__p::first-letter {
@@ -482,11 +483,12 @@ general styles
 }
 
 .about__a {
-    padding: 18px;
+  padding: 18px;
 }
 
 .resume__lines {
-    display: flex;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .resume__h4 {
@@ -518,7 +520,7 @@ general styles
     display: inline-block;
     font-size: 11px;
     line-height: 18px;
-    color: var(--main__bg);
+    color: var(--color__icon1);
     font-weight: 500;
     text-transform: uppercase;
     border-radius: 4px;
@@ -527,6 +529,7 @@ general styles
 
 .date::before {    
     content: '';
+    color: var(--color__icon1);
     position: absolute;
     left: -19px;
     top: 4px;
@@ -648,7 +651,7 @@ content: "\200B"; /* add zero-width space */
     text-decoration: overline #171717;
 }
 
-.works-content{
+.works-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -663,6 +666,10 @@ content: "\200B"; /* add zero-width space */
     cursor: pointer;
     flex-basis: 0;
     min-width: 230px;
+}
+
+.works__card:hover {
+  border: 0.3px solid #2eca7f;
 }
 
 .works__card a, 
